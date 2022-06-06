@@ -1,0 +1,27 @@
+    Private Sub dgkaryawan_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgkaryawan.CellClick
+        Dim jengkel As String
+
+        If e.RowIndex <> -1 And e.ColumnIndex <> -1 Then
+            Try
+                txtnip.Text = dgkaryawan.Rows(e.RowIndex).Cells("NIP").Value
+                txtnama.Text = dgkaryawan.Rows(e.RowIndex).Cells("Nama_Karyawan").Value
+                tbjabatan = proses.ExecuteQuery("Select * From Tb_Jabatan where ID_Jabatan ='" & dgkaryawan.Rows(e.RowIndex).Cells("ID_Jabatan").Value & "'")
+                If tbjabatan.Rows.Count <> 0 Then
+                    cmbjabatan.Text = tbjabatan.Rows(0).Item("Jabatan").ToString
+                End If
+                jengkel = dgkaryawan.Rows(e.RowIndex).Cells("Jenis_Kelamin").Value
+                If (jengkel = "Laki-Laki") Then
+                    rlaki.Checked = True
+                Else
+                    rperempuan.Checked = True
+                End If
+
+                txttlp.Text = dgkaryawan.Rows(e.RowIndex).Cells("No_Tlp").Value
+                txtalamat.Text = dgkaryawan.Rows(e.RowIndex).Cells("Alamat").Value
+            Catch Ex As Exception
+
+                MessageBox.Show(Ex.Message.ToString)
+
+            End Try
+        End If
+    End Sub
